@@ -164,7 +164,7 @@ class InstructionTypeId {
             DEBUG_BREAK = 181,
             DEBUG_SET   = 182,
         };
-        constexpr InstructionTypeId(TypeId typeId);
+        constexpr InstructionTypeId(TypeId typeId) : value(typeId){};
     private:
         TypeId value;
 };
