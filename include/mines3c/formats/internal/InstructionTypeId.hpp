@@ -164,6 +164,14 @@ class InstructionTypeId {
             DEBUG_BREAK = 181,
             DEBUG_SET   = 182,
         };
+        /*!
+         * \brief Инициализирует значением TypeId::EMPTY.
+         */
+        constexpr InstructionTypeId() :
+            value(InstructionTypeId::TypeId::EMPTY){};
+        /*!
+         * \brief Инициализирует заданным значением.
+         */
         constexpr InstructionTypeId(TypeId typeId) : value(typeId){};
     private:
         TypeId value;
