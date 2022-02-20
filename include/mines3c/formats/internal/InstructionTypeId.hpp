@@ -12,6 +12,8 @@ namespace internal {
  *
  * \note Здесь не определены typeId для инструкций <code>LAST</code>,
  * <code>RESTART</code>.
+ *
+ * \sa InstructionKind
  */
 class InstructionTypeId {
     public:
