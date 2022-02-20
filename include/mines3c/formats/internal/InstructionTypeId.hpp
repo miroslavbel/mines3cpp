@@ -1,6 +1,8 @@
 #ifndef MINES3C_FORMATS_INTERNAL_INSTRUCTIONTYPEID__HPP
 #define MINES3C_FORMATS_INTERNAL_INSTRUCTIONTYPEID__HPP
 
+#include "mines3c/formats/internal/InstructionKind.hpp"
+
 namespace mines3c {
 namespace formats {
 namespace internal {
@@ -175,6 +177,29 @@ class InstructionTypeId {
          * \brief Инициализирует заданным значением.
          */
         constexpr InstructionTypeId(TypeId typeId) : value(typeId){};
+        bool operator==(TypeId typeId) const noexcept {
+            return this->value == typeId;
+        }
+        /*!
+         * \brief Возвращает тип инструкции.
+         *
+         * \sa InstructionKind
+         */
+        InstructionKind GetKind() const noexcept {
+            if (*this == TypeId::GOTO || *this == TypeId::GOSUB ||
+                *this == TypeId::GOSUB1 || *this == TypeId::LABEL ||
+                *this == TypeId::GOSUBF || *this == TypeId::IF_NOT_GOTO ||
+                *this == TypeId::IF_GOTO || *this == TypeId::ON_RESP) {
+                return InstructionKind::Label;
+            } else if (*this == TypeId::VAR_MORE || *this == TypeId::VAR_LESS ||
+                       *this == TypeId::VAR_EQUAL) {
+                return InstructionKind::VarCmp;
+            } else if (*this == TypeId::DEBUG_BREAK ||
+                       *this == TypeId::DEBUG_SET) {
+                return InstructionKind::String;
+            }
+            return InstructionKind::Simple;
+        }
     private:
         TypeId value;
 };
